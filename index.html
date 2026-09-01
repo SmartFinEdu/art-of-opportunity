@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="uk" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Підприємництво та мистецтво бачити можливості • 9 Клас</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Unbounded:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+        }
+        .heading-font {
+            font-family: 'Unbounded', cursive, sans-serif;
+        }
+        .glass-card {
+            background: rgba(30, 41, 59, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+        .glass-card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-card-hover:hover {
+            transform: translateY(-3px);
+            border-color: rgba(56, 189, 248, 0.4);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(56, 189, 248, 0.1);
+        }
+        .slide {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out;
+        }
+        .slide.active {
+            display: flex;
+            opacity: 1;
+        }
+        /* Custom scrollbar */
+        .custom-scroll::-webkit-scrollbar {
+            width: 8px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 8px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: rgba(51, 65, 85, 0.8);
+            border-radius: 8px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb:hover {
+            background: rgba(99, 102, 241, 0.8);
+        }
+    </style>
+</head>
+<body class="h-screen w-screen overflow-hidden bg-slate-950 text-slate-100 flex flex-col justify-between selection:bg-cyan-500 selection:text-slate-950">
+
+    <!-- Top Right Floating Counter -->
+    <div class="absolute top-4 right-4 md:right-8 z-30 flex items-center space-x-3 bg-slate-900/80 backdrop-blur-md px-4 py-2 rounded-full border border-slate-800 shadow-xl">
+        <div class="w-20 md:w-28 bg-slate-800 h-2 rounded-full overflow-hidden border border-slate-700/60 p-0.5">
+            <div id="progress-bar" class="bg-gradient-to-r from-cyan-400 via-indigo-500 to-emerald-400 h-full rounded-full w-0 transition-all duration-300"></div>
+        </div>
+        <span id="slide-num" class="text-xs md:text-sm text-cyan-400 font-mono font-bold whitespace-nowrap">1 / 21</span>
+    </div>
+
+    <!-- Main Content Container -->
+    <main class="flex-1 relative overflow-hidden p-4 md:p-8 flex items-center justify-center">
+        <div class="w-full max-w-6xl h-full max-h-[85vh] flex flex-col justify-center">
+
+            <!-- SLIDE 1: Title & Student Registration -->
+            <div class="slide active flex-col items-center justify-center text-center space-y-6 my-auto">
+                <div class="inline-flex items-center space-x-2 bg-indigo-500/10 text-indigo-300 border border-indigo-500/40 px-4 py-2 rounded-full text-xs md:text-sm font-semibold uppercase tracking-wider">
+                    <i class="fa-solid fa-graduation-cap text-amber-400 text-base"></i>
+                    <span>Інтегрований курс • Підприємливість та фінансова грамотність</span>
+                </div>
+                
+                <h1 class="heading-font text-3xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-indigo-200 to-emerald-400 leading-tight max-w-4xl">
+                    Підприємництво та мистецтво бачити можливості
+                </h1>
+                
+                <p class="text-slate-300 text-sm md:text-lg max-w-3xl font-normal leading-relaxed">
+                    Інтерактивний практикум з кейс-стаді, реальними фінансовими розрахунками та підсумковим тестуванням з <b>12 складних запитань</b> на оцінку від 1 до 12 балів!
+                </p>
+
+                <!-- Name Input Box -->
+                <div class="glass-card p-6 md:p-8 rounded-2xl max-w-lg w-full border border-indigo-500/50 shadow-2xl space-y-4">
+                    <label for="student-name-input" class="block text-sm uppercase font-bold text-cyan-400 tracking-wider text-left">
+                        <i class="fa-solid fa-user-pen mr-2"></i> Введіть ваше Ім'я та Прізвище:
+                    </label>
+                    <input type="text" id="student-name-input" placeholder="напр. Олександр Коваленко" 
+                           class="w-full px-5 py-3.5 rounded-xl bg-slate-900/90 border border-slate-600 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 text-base font-medium transition-all shadow-inner"
+                           oninput="saveStudentName(this.value)">
+                    <div class="text-xs md:text-sm text-slate-300 text-left bg-slate-900/60 p-3 rounded-xl border border-slate-800 flex items-start space-x-3">
+                        <i class="fa-solid fa-circle-info text-amber-400 text-base mt-0.5 shrink-0"></i>
+                        <span>Наприкінці уроку ви виконаєте <b>12 комплексних тестів</b>. Результати будуть збережені в іменний електронний сертифікат.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 2: What is Entrepreneurship? -->
+            <div class="slide flex-col space-y-5 my-auto custom-scroll overflow-y-auto max-h-[78vh] pr-2">
+                <div class="border-b border-slate-800 pb-3 flex justify-between items-end">
+                    <div>
+                        <span class="text-cyan-400 font-bold text-xs md:text-sm tracking-wider uppercase">Слайд 2 • Теоретична основа</span>
+                        <h2 class="heading-font text-2xl md:text-3xl font-bold text-white mt-1">Що таке підприємливість? (EntreComp)</h2>
+                    </div>
+                    <span class="text-xs md:text-sm bg-slate-800 px-3.5 py-1.5 rounded-full text-slate-300 font-medium"><i class="fa-solid fa-book-open mr-2"></i>Концепція</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                    <div class="space-y-4">
+                        <div class="glass-card p-5 rounded-2xl border-l-4 border-indigo-500 space-y-2">
+                            <h3 class="text-base font-bold text-indigo-300 flex items-center">
+                                <i class="fa-solid fa-brain text-indigo-400 mr-2.5 text-lg"></i>Підприємливість як компетентність
+                            </h3>
+                            <p class="text-slate-200 text-sm md:text-base leading-relaxed">
+                                За Європейською рамкою <b>EntreComp</b>, підприємливість — це здатність перетворювати ідеї та можливості у цінність для інших (фінансову, культурну чи соціальну).
+                            </p>
+                        </div>
+
+                        <div class="glass-card p-5 rounded-2xl border-l-4 border-emerald-500 space-y-2">
+                            <h3 class="text-base font-bold text-emerald-300 flex items-center">
+                                <i class="fa-solid fa-gem text-emerald-400 mr-2.5 text-lg"></i>Створення нової цінності
+                            </h3>
+                            <p class="text-slate-200 text-sm md:text-base leading-relaxed">
+                                Можливість — це не просто фантазія. Вона виникає там, де ви бачите <b>біль чи проблему споживача</b> і пропонуєте зручне рішення.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Visual Illustration -->
+                    <div class="glass-card p-3.5 rounded-2xl overflow-hidden border border-slate-700 relative group">
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80" 
+                             onerror="this.src='https://placehold.co/800x500/1e293b/38bdf8?text=EntreComp+Competence'"
+                             alt="Командна робота та підприємливість" 
+                             class="w-full h-56 md:h-64 object-cover rounded-xl transition-transform duration-500 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
+                        <div class="absolute bottom-3 left-3 right-3 text-xs md:text-sm text-slate-200 bg-slate-950/90 p-3 rounded-xl backdrop-blur border border-slate-800">
+                            💡 <b>Ключовий висновок:</b> Підприємливим можна бути і в науці, і в волонтерстві, і в IT-проєктах!
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 3: Mindset vs Business -->
+            <div class="slide flex-col space-y-5 my-auto custom-scroll overflow-y-auto max-h-[78vh] pr-2">
+                <div class="border-b border-slate-800 pb-3">
+                    <span class="text-indigo-400 font-bold text-xs md:text-sm tracking-wider uppercase">Слайд 3 • Порівняння концепцій</span>
+                    <h2 class="heading-font text-2xl md:text-3xl font-bold text-white mt-1">Підприємливість VS Підприємництво</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <div class="glass-card p-5 rounded-2xl space-y-3 border-t-4 border-indigo-400 glass-card-hover flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <h3 class="text-base font-bold text-indigo-300 flex items-center">
+                                    <i class="fa-solid fa-lightbulb mr-2 text-indigo-400 text-lg"></i>Підприємливість
+                                </h3>
+                                <span class="text-xs bg-indigo-500/20 text-indigo-300 px-2.5 py-1 rounded-md font-semibold">Мислення</span>
+                            </div>
+                            <ul class="text-xs md:text-sm text-slate-200 space-y-2.5 list-disc list-inside leading-relaxed">
+                                <li>Характерна для будь-якої активної людини.</li>
+                                <li>Ініціативність у школі, громаді, спорті.</li>
+                                <li>Гнучкість мислення та пошук рішень.</li>
+                                <li>Вміння гуртувати людей навколо ідеї.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Added Image Component for Slide 3 -->
+                    <div class="glass-card p-3 rounded-2xl border border-slate-700 flex flex-col items-center justify-center relative group overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80" 
+                             onerror="this.src='https://placehold.co/800x600/1e293b/6366f1?text=Business+vs+Mindset'" 
+                             alt="Обговорення ідеї" 
+                             class="w-full h-48 md:h-full object-cover rounded-xl transition-transform duration-500 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-slate-950/40 group-hover:bg-slate-950/20 transition-all"></div>
+                        <span class="absolute bottom-3 bg-slate-950/80 px-3 py-1.5 rounded-lg text-xs font-semibold text-cyan-300 border border-slate-800">
+                            🤝 Від ідеї до практичної реалізації
+                        </span>
+                    </div>
+
+                    <div class="glass-card p-5 rounded-2xl space-y-3 border-t-4 border-emerald-400 glass-card-hover flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <h3 class="text-base font-bold text-emerald-300 flex items-center">
+                                    <i class="fa-solid fa-chart-line mr-2 text-emerald-400 text-lg"></i>Підприємництво
+                                </h3>
+                                <span class="text-xs bg-emerald-500/20 text-emerald-300 px-2.5 py-1 rounded-md font-semibold">Бізнес</span>
+                            </div>
+                            <ul class="text-xs md:text-sm text-slate-200 space-y-2.5 list-disc list-inside leading-relaxed">
+                                <li>Офіційно зареєстрована діяльність (ФОП, ТОВ).</li>
+                                <li>Мета — отримання систематичного прибутку.</li>
+                                <li>Керування капіталом та ризиками.</li>
+                                <li>Сплата податків та відповідальність.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Discussion Prompt -->
+                <div class="bg-indigo-950/50 p-4 rounded-xl border border-indigo-500/40 text-sm text-slate-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                    <div class="flex items-center space-x-3">
+                        <i class="fa-solid fa-comments text-cyan-400 text-2xl shrink-0"></i>
+                        <span><b>Питання для роздумів:</b> Чи може некомерційна громадська організація бути підприємливою?</span>
+                    </div>
+                    <button onclick="toggleDiscussion('disc-0')" class="text-xs md:text-sm bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-xl whitespace-nowrap font-bold transition-all shrink-0">
+                        Відповідь
+                    </button>
+                </div>
+                <div id="disc-0" class="hidden glass-card p-4 rounded-xl text-xs md:text-sm text-slate-200 border border-indigo-500/40 leading-relaxed">
+                    <b>Так!</b> Вона може використовувати підприємливий підхід: шукати фандрайзинг, пропонувати інноваційні соціальні послуги та залучати волонтерів, навіть не маючи на меті власний збагачувальний прибуток.
+                </div>
+            </div>
+
+            <!-- SLIDE 4: Financial Case #1 - AI & EdTech -->
+            <div class="slide flex-col space-y-5 my-auto custom-scroll overflow-y-auto max-h-[78vh] pr-2">
+                <div class="border-b border-slate-800 pb-3 flex justify-between items-end">
+                    <div>
+                        <span class="text-purple-400 font-bold text-xs md:text-sm tracking-wider uppercase">Слайд 4 • Фінансовий кейс #1</span>
+                        <h2 class="heading-font text-2xl md:text-3xl font-bold text-white mt-1">AI-Асистенти та Шкільний EdTech</h2>
+                    </div>
+                    <span class="text-xs md:text-sm bg-purple-500/20 text-purple-300 px-3 py-1.5 rounded-full border border-purple-500/40 font-semibold">Тренд 2026</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div class="space-y-4">
+                        <div class="glass-card p-5 rounded-2xl border-l-4 border-purple-500 space-y-2">
+                            <h3 class="text-xs md:text-sm font-bold text-purple-300 uppercase tracking-wider">Ситуація на ринку</h3>
+                            <p class="text-xs md:text-base text-slate-200 leading-relaxed">
+                                Учні 9-11 класів витрачають понад 15 годин на тиждень на пошук конспектів та матеріалів для підготовки до НМТ/ДПА. Батьки платять репетиторам від 300 до 600 грн/год.
+                            </p>
+                        </div>
+
+                        <div class="glass-card p-5 rounded-2xl border-l-4 border-emerald-500 space-y-2">
+                            <h3 class="text-xs md:text-sm font-bold text-emerald-300 uppercase tracking-wider">Фінансова бізнес-ідея</h3>
+                            <p class="text-xs md:text-base text-slate-200 leading-relaxed">
+                                Група старшокласників створила AI-бота «StudyPro», який генерує інтерактивні картки для запам'ятовування. Передплата — <b>99 грн/місяць</b>.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="glass-card p-4 rounded-2xl flex flex-col justify-between border border-slate-700 space-y-3">
+                        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80" 
+                             onerror="this.src='https://placehold.co/800x400/1e293b/a855f7?text=AI+EdTech+Startup'" 
+                             alt="AI навчальний стартап" 
+                             class="w-full h-40 md:h-44 object-cover rounded-xl">
+                        
+                        <!-- Financial Challenge -->
+                        <div class="bg-slate-900/90 p-4 rounded-xl border border-purple-500/40 space-y-2.5">
+                            <div class="text-xs md:text-sm font-bold text-amber-400 flex items-center">
+                                <i class="fa-solid fa-calculator mr-2 text-base"></i> 💬 ДИСКУСІЙНИЙ ЧЕЛЕНДЖ #1
+                            </div>
+                            <p class="text-xs md:text-sm text-slate-200 leading-relaxed">
+                                Витрати на сервер та API AI становлять <b>2000 грн/міс</b>. Скільки підписників потрібно залучити, щоб вийти у «нуль» (точку беззбитковості)?
+                            </p>
+                            <button onclick="toggleDiscussion('disc-1')" class="w-full py-2 bg-purple-600 hover:bg-purple-500 text-white rounded-xl text-xs md:text-sm font-bold transition-all">
+                                Перевірити розрахунок
+                            </button>
+                            <div id="disc-1" class="hidden text-xs md:text-sm text-emerald-300 bg-slate-950 p-3 rounded-xl border border-slate-800 leading-relaxed">
+                                📊 <b>Формула:</b> 2000 грн / 99 грн = 20.2. <br>
+                                <b>Відповідь:</b> Потрібно щонайменше <b>21 підписник</b>. Кожен наступний підписник приноситиме чистий прибуток!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 5: Financial Case #2 - Eco & Upcycling -->
+            <div class="slide flex-col space-y-5 my-auto custom-scroll overflow-y-auto max-h-[78vh] pr-2">
+                <div class="border-b border-slate-800 pb-3 flex justify-between items-end">
+                    <div>
+                        <span class="text-emerald-400 font-bold text-xs md:text-sm tracking-wider uppercase">Слайд 5 • Фінансовий кейс #2</span>
+                        <h2 class="heading-font text-2xl md:text-3xl font-bold text-white mt-1">Еко-бренд та Апсайклінг Денім-аксесуарів</h2>
+                    </div>
+                    <span class="text-xs md:text-sm bg-emerald-500/20 text-emerald-300 px-3 py-1.5 rounded-full border border-emerald-500/40 font-semibold">Зелена Економіка</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div class="glass-card p-4 rounded-2xl space-y-3 border border-slate-700">
+                        <img src="https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&q=80" 
+                             onerror="this.src='https://placehold.co/800x400/1e293b/10b981?text=Eco+Upcycling+Denim'" 
+                             alt="Еко шопери з джинсу" 
+                             class="w-full h-44 md:h-48 object-cover rounded-xl">
+                        
+                        <p class="text-xs md:text-base text-slate-200 leading-relaxed">
+                            Учні збирають непотрібний старий джинсовий одяг у школі (безкоштовна сировина) та шиють із нього стильні шопери і чохли для ноутбуків.
+                        </p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="glass-card p-4.5 rounded-xl border-l-4 border-emerald-400 space-y-2">
+                            <h4 class="text-xs md:text-sm font-bold text-emerald-300 uppercase">Структура витрат на 1 шопер:</h4>
+                            <ul class="text-xs md:text-sm text-slate-200 space-y-1.5">
+                                <li>• Текстиль: <b>0 грн</b> (вторинна сировина)</li>
+                                <li>• Нитка, блискавка, фурнітура: <b>40 грн</b></li>
+                                <li>• Оплата праці швачки-учня: <b>80 грн</b></li>
+                                <li>• Упаковка та стікер: <b>20 грн</b></li>
+                            </ul>
+                        </div>
+
+                        <!-- Financial Challenge -->
+                        <div class="bg-slate-900/90 p-4 rounded-xl border border-emerald-500/40 space-y-2.5">
+                            <div class="text-xs md:text-sm font-bold text-amber-400 flex items-center">
+                                <i class="fa-solid fa-coins mr-2 text-base"></i> 💬 ДИСКУСІЙНИЙ ЧЕЛЕНДЖ #2
+                            </div>
+                            <p class="text-xs md:text-sm text-slate-200 leading-relaxed">
+                                Собівартість виготовлення шопера — <b>140 грн</b>. Ви роздрібно продаєте його за <b>350 грн</b>. Який прибуток та маржинальність ви отримуєте з 10 проданих шоперів?
+                            </p>
+                            <button onclick="toggleDiscussion('disc-2')" class="w-full py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs md:text-sm font-bold transition-all">
+                                Покажи обчислення
+                            </button>
+                            <div id="disc-2" class="hidden text-xs md:text-sm text-cyan-300 bg-slate-950 p-3 rounded-xl border border-slate-800 space-y-1.5 leading-relaxed">
+                                <p>• Чистий прибуток з 1 шопера = 350 - 140 = <b>210 грн</b>.</p>
+                                <p>• З 10 шоперів = <b>2100 грн чистий прибуток</b>!</p>
+                                <p>• Маржинальність = (210 / 350) * 100% = <b>60%</b> (Висока рентабельність).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 6: Financial Case #3 - Gig Economy & Micro-services -->
+            <div class="slide flex-col space-y-5 my-auto custom-scroll overflow-y-auto max-h-[78vh] pr-2">
+                <div class="border-b border-slate-800 pb-3 flex justify-between items-end">
+                    <div>
+                        <span class="text-cyan-400 font-bold text-xs md:text-sm tracking-wider uppercase">Слайд 6 • Фінансовий кейс #3</span>
+                        <h2 class="heading-font text-2xl md:text-3xl font-bold text-white mt-1">Мікро-агентство послуг «TeenAgency»</h2>
+                    </div>
+                    <span class="text-xs md:text-sm bg-cyan-500/20 text-cyan-300 px-3 py-1.5 rounded-full border border-cyan-500/40 font-semibold">Гіг-економіка</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div class="space-y-4">
+                        <div class="glass-card p-5 rounded-xl border-l-4 border-cyan-400 space-y-2">
+                            <h3 class="text-xs md:text-sm font-bold text-cyan-300 uppercase">Локальна проблема</h3>
+                            <p class="text-xs md:text-base text-slate-200 leading-relaxed">
+                                Місцеві кав'ярні та магазини квітів не вміють якісно знімати Reels/TikTok для молоді, а великі SMM-агенції просять від 15,000 грн/міс, що задорого для малого бізнесу.
+                            </p>
+                        </div>
+
+                        <div class="glass-card p-5 rounded-xl border-l-4 border-indigo-500 space-y-2">
+                            <h3 class="text-xs md:text-sm font-bold text-indigo-300 uppercase">Рішення та Послуга</h3>
+                            <p class="text-xs md:text-base text-slate-200 leading-relaxed">
+                                Двоє дев'ятикласників пропонують пакет «SMM-Старт»: 8 відео Reels + модерація сторінки за <b>4,000 грн/місяць</b> для однієї кав'ярні.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="glass-card p-4 rounded-2xl flex flex-col justify-between border border-slate-700 space-y-3">
+                        <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80" 
+                             onerror="this.src='https://placehold.co/800x400/1e293b/38bdf8?text=Teen+SMM+Agency'" 
+                             alt="Підлітки знімають відео на смартфон" 
+                             class="w-full h-40 md:h-44 object-cover rounded-xl">
+
+                        <!-- Financial Challenge -->
+                        <div class="bg-slate-900/90 p-4 rounded-xl border border-cyan-500/40 space-y-2.5">
+                            <div class="text-xs md:text-sm font-bold text-amber-400 flex items-center">
+                                <i class="fa-solid fa-users-gear mr-2 text-base"></i> 💬 ДИСКУСІЙНИЙ ЧЕЛЕНДЖ #3
+                            </div>
+                            <p class="text-xs md:text-sm text-slate-200 leading-relaxed">
+                                Агентство взяло 3 клієнти (дохід 12,000 грн/міс). Вони витратили 2,000 грн на проїзд та мікрофон. Як чесно розділити залишок між 2 партнерами?
+                            </p>
+                            <button onclick="toggleDiscussion('disc-3')" class="w-full py-2 bg-cyan-600 hover:bg-cyan-500 text-white rounded-xl text-xs md:text-sm font-bold transition-all">
+                                Дискусійне рішення
+                            </button>
+                            <div id="disc-3" class="hidden text-xs md:text-sm text-emerald-300 bg-slate-950 p-3 rounded-xl border border-slate-800 space-y-1 leading-relaxed">
+                                <p>• Чистий дохід = 12,000 - 2,000 = <b>10,000 грн</b>.</p>
+                                <p>• Рекомендація: 10% (1,000 грн) відкласти в <b>Резервний фонд бізнесу</b> (на рекламу/техніку).</p>
+                                <p>• Залишок 9,000 грн розділити по <b>4,500 грн кожному</b> за виконану роботу.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 7: Financial Case #4 - Social Business & Inclusion -->
+            <div class="slide flex-col space-y-5 my-auto custom-scroll overflow-y-auto max-h-[78vh] pr-2">
+                <div class="border-b border-slate-800 pb-3 flex justify-between items-end">
+                    <div>
+                        <span class="text-amber-400 font-bold text-xs md:text-sm tracking-wider uppercase">Слайд 7 • Фінансовий кейс #4</span>
+                        <h2 class="heading-font text-2xl md:text-3xl font-bold text-white mt-1">Соціальне підприємництво та Громада</h2>
+                    </div>
+                    <span class="text-xs md:text-sm bg-amber-500/20 text-amber-300 px-3 py-1.5 rounded-full border border-amber-500/40 font-semibold">Соціальний Вплив</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div class="glass-card p-4 rounded-2xl space-y-3 border border-slate-700">
+                        <img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?auto=format&fit=crop&w=800&q=80" 
+                             onerror="this.src='https://placehold.co/800x400/1e293b/f59e0b?text=Social+Bakery+Inclusion'" 
+                             alt="Соціальна пекарня" 
+                             class="w-full h-44 md:h-48 object-cover rounded-xl">
+                        <p class="text-xs md:text-base text-slate-200 leading-relaxed">
+                            Інклюзивна пекарня працевлаштовує людей з інвалідністю та ветеранів. 50% чистого прибутку передається на реабілітаційний центр громади.
+                        </p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="glass-card p-5 rounded-xl border-l-4 border-amber-400 space-y-2">
+                            <h3 class="text-xs md:text-sm font-bold text-amber-300 uppercase">Особливість моделі</h3>
+                            <p class="text-xs md:text-base text-slate-200 leading-relaxed">
+                                На відміну від звичайної благодійності, соціальне підприємництво <b>самостійно заробляє кошти</b> на ринку, а не лише чекає на пожертви та ґранти.
+                            </p>
+                        </div>
+
+                        <!-- Financial Challenge -->
+                        <div class="bg-slate-900/90 p-4 rounded-xl border border-amber-500/40 space-y-2.5">
+                            <div class="text-xs md:text-sm font-bold text-cyan-400 flex items-center">
+                                <i class="fa-solid fa-hand-holding-heart mr-2 text-base"></i> 💬 ДИСКУСІЙНИЙ ЧЕЛЕНДЖ #4
+                            </div>
+                            <p class="text-xs md:text-sm text-slate-200 leading-relaxed">
+                                Витрати пекарні — 50,000 грн. Виручка — 80,000 грн. Чистий прибуток — 30,000 грн. Яку суму отримає реабілітаційний центр, а яка залишиться на розвиток?
+                            </p>
+                            <button onclick="toggleDiscussion('disc-4')" class="w-full py-2 bg-amber-600 hover:bg-amber-500 text-slate-950 font-bold rounded-xl text-xs md:text-sm transition-all">
+                                Подивитися розподіл
+                            </button>
+                            <div id="disc-4" class="hidden text-xs md:text-sm text-emerald-300 bg-slate-950 p-3 rounded-xl border border-slate-800 space-y-1.5 leading-relaxed">
+                                <p>• 50% від 30,000 грн = <b>15,000 грн</b> передається реабілітаційному центру на соціальну мету.</p>
+                                <p>• Інші <b>15,000 грн</b> залишаються в пекарні для закупівлі нових печей та розширення.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 8: 5-Step Project Framework -->
+            <div class="slide flex-col space-y-5 my-auto custom-scroll overflow-y-auto max-h-[78vh] pr-2">
+                <div class="border-b border-slate-800 pb-3 flex justify-between items-center">
+                    <div>
+                        <span class="text-cyan-400 font-bold text-xs md:text-sm tracking-wider uppercase">Слайд 8 • Алгоритм дії</span>
+                        <h2 class="heading-font text-2xl md:text-3xl font-bold text-white mt-1">5 Кроків запуску будь-якої ідеї</h2>
+                    </div>
+                    <span class="text-xs md:text-sm bg-slate-800 text-slate-300 px-3 py-1.5 rounded-full border border-slate-700">🚀 Дорожня карта</span>
+                </div>
+
+                <!-- Added Visual Header Banner for Slide 8 -->
+                <div class="glass-card p-3 rounded-2xl border border-slate-700 relative overflow-hidden flex items-center h-28 md:h-32">
+                    <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=1200&q=80" 
+                         onerror="this.src='https://placehold.co/1200x300/1e293b/38bdf8?text=Startup+Roadmap+5+Steps'" 
+                         alt="Командне планування" 
+                         class="w-full h-full object-cover rounded-xl">
+                    <div class="absolute inset-0 bg-slate-950/70 backdrop-blur-xs flex items-center px-6">
+                        <p class="text-xs md:text-base font-semibold text-slate-100 max-w-2xl">
+                            💡 Кожна успішна компанія — від невеликого шкільного ярмарку до міжнародного IT-гіганта — проходить ці 5 послідовних етапів:
+                        </p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4">
+                    <div class="glass-card p-4 rounded-xl space-y-2 border-t-4 border-cyan-400 glass-card-hover">
+                        <div class="w-8 h-8 bg-cyan-500/20 text-cyan-400 font-extrabold rounded-full flex items-center justify-center text-sm">1</div>
+                        <h3 class="text-sm md:text-base font-bold text-white">Проблема</h3>
+                        <p class="text-xs md:text-sm text-slate-300 leading-relaxed">Досліди, що турбує твоїх майбутніх клієнтів у школі чи місті.</p>
+                    </div>
+
+                    <div class="glass-card p-4 rounded-xl space-y-2 border-t-4 border-indigo-400 glass-card-hover">
+                        <div class="w-8 h-8 bg-indigo-500/20 text-indigo-400 font-extrabold rounded-full flex items-center justify-center text-sm">2</div>
+                        <h3 class="text-sm md:text-base font-bold text-white">Ідея</h3>
+                        <p class="text-xs md:text-sm text-slate-300 leading-relaxed">Проведи мозковий штурм та сформулюй УТП (Унікальну пропозицію).</p>
+                    </div>
+
+                    <div class="glass-card p-4 rounded-xl space-y-2 border-t-4 border-purple-400 glass-card-hover">
+                        <div class="w-8 h-8 bg-purple-500/20 text-purple-400 font-extrabold rounded-full flex items-center justify-center text-sm">3</div>
+                        <h3 class="text-xs md:text-sm font-bold text-white">Ресурси</h3>
+                        <p class="text-xs md:text-sm text-slate-300 leading-relaxed">Порахуй початковий бюджет, час та навички команди.</p>
+                    </div>
+
+                    <div class="glass-card p-4 rounded-xl space-y-2 border-t-4 border-amber-400 glass-card-hover">
+                        <div class="w-8 h-8 bg-amber-500/20 text-amber-400 font-extrabold rounded-full flex items-center justify-center text-sm">4</div>
+                        <h3 class="text-sm md:text-base font-bold text-white">MVP Тест</h3>
+                        <p class="text-xs md:text-sm text-slate-300 leading-relaxed">Зроби першу прототипну версію та отримай зворотний зв'язок.</p>
+                    </div>
+
+                    <div class="glass-card p-4 rounded-xl space-y-2 border-t-4 border-emerald-400 glass-card-hover">
+                        <div class="w-8 h-8 bg-emerald-500/20 text-emerald-400 font-extrabold rounded-full flex items-center justify-center text-sm">5</div>
+                        <h3 class="text-sm md:text-base font-bold text-white">Масштаб</h3>
+                        <p class="text-xs md:text-sm text-slate-300 leading-relaxed">Вдосконалюй продукт на основі продажів та відгуків.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 9: QUIZ #1 -->
+            <div class="slide flex-col space-y-5 my-auto">
+                <div class="border-b border-slate-800 pb-3 flex justify-between items-center">
+                    <div>
+                        <span class="text-amber-400 font-bold text-xs md:text-sm tracking-wider uppercase">Тест • Питання 1 з 12</span>
+                        <h2 class="heading-font text-xl md:text-2xl font-bold text-white">Сутність підприємливості (EntreComp)</h2>
+                    </div>
+                    <span class="bg-amber-500/20 text-amber-300 text-xs md:text-sm px-3.5 py-1.5 rounded-full border border-amber-500/40 font-bold">1 бал</span>
+                </div>
+
+                <div class="glass-card p-6 md:p-8 rounded-2xl space-y-5 border border-slate-700">
+                    <p class="text-base md:text-xl font-bold text-slate-100 leading-relaxed">
+                        1. Відповідно до європейської рамки EntreComp, що є головною ознакою підприємливої людини?
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="quiz-1-options">
+                        <button onclick="answerQuiz(1, 'A', false, this)" class="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left text-sm md:text-base text-slate-200 transition-all font-medium">
+                            А) Наявність власного банківського рахунку з великим капіталом
+                        </button>
+                        <button onclick="answerQuiz(1, 'B', true, this)" class="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left text-sm md:text-base text-slate-200 transition-all font-medium">
+                            Б) Здатність перетворювати ідеї та можливості у цінність для інших
+                        </button>
+                        <button onclick="answerQuiz(1, 'C', false, this)" class="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left text-xs md:text-base text-slate-200 transition-all font-medium">
+                            В) Прагнення будь-що працювати виключно на керівних посадах
+                        </button>
+                        <button onclick="answerQuiz(1, 'D', false, this)" class="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left text-sm md:text-base text-slate-200 transition-all font-medium">
+                            Г) Уникнення будь-якої відповідальності та командної роботи
+                        </button>
+                    </div>
+                    <div id="quiz-1-feedback" class="hidden p-4 rounded-xl text-sm md:text-base font-semibold"></div>
+                </div>
+            </div>
+
+            <!-- SLIDE 10: QUIZ #2 -->
+            <div class="slide flex-col space-y-5 my-auto">
+                <div class="border-b border-slate-800 pb-3 flex justify-between items-center">
+                    <div>
+                        <span class="text-amber-400 font-bold text-xs md:text-sm tracking-wider uppercase">Тест • Питання 2 з 12</span>
+                        <h2 class="heading-font text-xl md:text-2xl font-bold text-white">Правовий статус та бізнес</h2>
+                    </div>
+                    <span class="bg-amber-500/20 text-amber-300 text-xs md:text-sm px-3.5 py-1.5 rounded-full border border-amber-500/40 font-bold">1 бал</span>
+                </div>
+
+                <div class="glass-card p-6 md:p-8 rounded-2xl space-y-5 border border-slate-700">
+                    <p class="text-base md:text-xl font-bold text-slate-100 leading-relaxed">
+                        2. У чому полягає відмінність між підприємливістю як рисою характеру та юридичним підприємництвом?
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="quiz-2-options">
+                        <button onclick="answerQuiz(2, 'A', false, this)" class="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left text-sm md:text-base text-slate-200 transition-all font-medium">
+                            А) Між ними немає жодної відмінності, це абсолютні синоніми
+                        </button>
+                        <button onclick="answerQuiz(2, 'B', true, this)" class="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left text-sm md:text-base text-slate-200 transition-all font-medium">
+                            Б) Підприємництво є офіційно зареєстрованою ризиковою діяльністю для отримання прибутку
+                        </button>
+                        <button onclick="answerQuiz(2, 'C', false, this)" class="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left text-sm md:text-base text-slate-200 transition-all font-medium">
+                            В) Підприємливість проявляється тільки після досягнення 18 років
+                        </button>
+                        <button onclick="answerQuiz(2, 'D', false, this)" class="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left text-sm md:text-base text-slate-200 transition-all font-medium">
+                            Г) Підприємництвом можуть займатися лише державні службовці
+                        </button>
+                    </div>
+                    <div id="quiz-2-feedback" class="hidden p-4 rounded-xl text-sm md:text-base font-semibold"></div>
+                </div>
+            </div>
+
+            <!-- SLIDE 11: QUIZ #3 -->
+            <div class="slide flex-col space-y-5 my-auto">
+                <div class="border-b border-slate-800 pb-3 flex justify-between items-center">
+                    <div>
+                        <span class="text-amber-400 font-bold text-xs md:text-sm tracking-wider uppercase">Тест • Питання 3 з 12</span>
+                        <h2 class="heading-font text-xl md:text-2xl font-bold text-white">Концепція MVP</h2>
+                    </div>
+                    <span class="bg-amber-500/20 text-amber-300 text-xs md:text-sm px-3.5 py-1.5 rounded-full border border-amber-500/40 font-bold">1 бал</span>
+                </div>
+
+                <div class="glass-card p-6 md:p-8 rounded-2xl space-y-5 border border-slate-700">
+                    <p class="text-base md:text-xl font-bold text-slate-100 leading-relaxed">
+                        3. Що таке MVP (Minimum Viable Product / Мінімально життєздатний продукт)?
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="quiz-3-options">
+                        <button onclick="answerQuiz(3, 'A', false, this)" class="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left text-sm md:text-base text-slate-200 transition-all font-medium">
+                            А) Фінальна розкішна версія товару, що розроблялася роками
+                        </button>
+                        <button onclick="answerQuiz(3, 'B', true, this)" class="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left text-sm md:text-base text-slate-200 transition-all font-medium">
+                            Б) Перша робоча версія продукту з мінімальними функціями для тестування ринку
+                        </button>
+                        <button onclick="answerQuiz(3, 'C', false, this)" class="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left text-sm md:text-base text-slate-200 transition-all font-medium">
+                            В) Бракована партія товару, яку не вдалося реалізувати
+                        </button>
+                        <button onclick="answerQuiz(3, 'D', false, this)" class="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left text-sm md:text-base text-slate-200 transition-all font-medium">
+                            Г) Документ з описом усіх штрафів та податкових перевірок
+                        </button>
+                    </div>
+                    <div id="quiz-3-feedback" class="hidden p-4 rounded-xl text-sm md:text-base font-semibold"></div>
+                </div>
+            </div>
+
+            <!-- SLIDE 12: QUIZ #4 -->
+            <div class="slide flex-col space-y-5 my-auto">
+                <div class="border-b border-slate-800 pb-3 flex justify-between items-center">
+                    <div>
+                        <span class="text-amber-400 font-bold text-xs md:text-sm tracking-wider uppercase">Тест • Питання 4 з 12</span>
+                        <h2 class="heading-font text-xl md:text-2xl font-bold text-white">Фінансовий розрахунок прибутку</h2>
+                    </div>
+                    <span class="bg-amber-500/20 text-amber-300 text-xs md:text-sm px-3.5 py-1.5 rounded-full border border-amber-500/40 font-bold">1 бал</span>
+                </div>
+
+                <div class="glass-card p-6 md:p-8 rounded-2xl space-y-5 border border-slate-700">
+                    <p class="text-base md:text-xl font-bold text-slate-100 leading-relaxed">
+                        4. Шкільний стартап продав 20 кастомних блокнотів за ціною 150 грн/шт. Собівартість виготовлення одного блокнота — 80 грн. Чому дорівнює ВІРУЧКА та ЧИСТИЙ ПРИБУТОК?
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="quiz-4-options">
+                        <button onclick="answerQuiz(4, 'A', false, this)" class="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left text-sm md:text-base text-slate-200 transition-all font-medium">
+                            А) Виручка: 1600 грн, Прибуток: 3000 грн
+                        </button>
+                        <button onclick="answerQuiz(4, 'B', true, this)" class="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left text-sm md:text-base text-slate-200 transition-all font-medium">
+                            Б) Виручка: 3000 грн, Прибуток: 1400 грн
+                        </button>
+                        <button onclick="answerQuiz(4, 'C', false, this)" class="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left text-sm md:text-base text-slate-200 transition-all font-medium">
+                            В) Виручка: 3000 грн, Прибуток: 3000 грн
+                        </button>
+                        <button onclick="answerQuiz(4, 'D', false, this)" class="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left text-sm md:text-base text-slate-200 transition-all font-medium">
+                            Г) Виручка: 1400 грн, Прибуток: 1600 грн
+                        </button>
+                    </div>
+                    <div id="quiz-4-feedback" class="hidden p-4 rounded-xl text-sm md:text-base font-semibold"></div>
+                </div>
+            </div>
+
+            <!-- SLIDE 13: QUIZ #5 -->
+            <div class="slide flex-col space-y-5 my-auto">
+                <div class="border-b border-slate-800 pb-3 flex justify-between items-center">
+                    <div>
+                        <span class="text-amber-400 font-bold text-xs md:text-sm tracking-wider uppercase">Тест • Питання 5 з 12</span>
+                        <h2 class="heading-font text-xl md:text-2xl font-bold text-white">Нематеріальні ресурси</h2>
+                    </div>
+                    <span class="bg-amber-500/20 text-amber-300 text-xs md:text-sm px-3.5 py-1.5 rounded-full border border-amber-500/40 font-bold">1 бал</span>
+                </div>
+
+                <div class="glass-card p-6 md:p-8 rounded-2xl space-y-5 border border-slate-700">
+                    <p class="text-base md:text-xl font-bold text-slate-100 leading-relaxed">
+                        5. Що з наведеного переліку належить до НЕМА ТЕРІАЛЬНИХ ресурсів стартапу?
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="quiz-5-options">
+                        <button onclick="answerQuiz(5, 'A', false, this)" class="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left text-sm md:text-base text-slate-200 transition-all font-medium">
+                            А) Принтер та 3D-сканер у кабінеті
+                        </button>
+                        <button onclick="answerQuiz(5, 'B', true, this)" class="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left text-sm md:text-base text-slate-200 transition-all font-medium">
+                            Б) Знання команди, репутація, бренд та ділові зв'язки
+                        </button>
+                        <button onclick="answerQuiz(5, 'C', false, this)" class="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left text-sm md:text-base text-slate-200 transition-all font-medium">
+                            В) Готівка в сейфі офісу
+                        </button>
+                        <button onclick="answerQuiz(5, 'D', false, this)" class="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left text-sm md:text-base text-slate-200 transition-all font-medium">
+                            Г) Запас сировини та пакувальних коробок
+                        </button>
+                    </div>
+                    <div id="quiz-5-feedback" class="hidden p-4 rounded-xl text-sm md:text-base font-semibold"></div>
+                </div>
+            </div>
+
+            <!-- SLIDE 14: QUIZ #6 -->
+            <div class="slide flex-col space-y-5 my-auto">
+                <div class="border-b border-slate-800 pb-3 flex justify-between items-center">
+                    <div>
+                        <span class="text-amber-400 font-bold text-xs md:text-sm tracking-wider uppercase">Тест • Питання 6 з 12</span>
+                        <h2 class="heading-font text-xl md:text-2xl font-bold text-white">Управління фінансовими ризиками</h2>
+                    </div>
+                    <span class="bg-amber-500/20 text-amber-300 text-xs md:text-sm px-3.5 py-1.5 rounded-full border border-amber-500/40 font-bold">1 бал</span>
+                </div>
+
+                <div class="glass-card p-6 md:p-8 rounded-2xl space-y-5 border border-slate-700">
+                    <p class="text-base md:text-xl font-bold text-slate-100 leading-relaxed">
+                        6. Як підприємцеві діяти найрозумніше, якщо є високий ризик затримки постачання сировини?
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="quiz-6-options">
+                        <button onclick="answerQuiz(6, 'A', false, this)" class="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left text-sm md:text-base text-slate-200 transition-all font-medium">
+                            А) Ігнорувати ризик і сподіватися, що нічого не станеться
+                        </button>
+                        <button onclick="answerQuiz(6, 'B', true, this)" class="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left text-sm md:text-base text-slate-200 transition-all font-medium">
+                            Б) Диверсифікувати постачальників та мати 1-2 резервні варіанти
+                        </button>
+                        <button onclick="answerQuiz(6, 'C', false, this)" class="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left text-sm md:text-base text-slate-200 transition-all font-medium">
+                            В) Негайно закрити бізнес при виникненні першої проблеми
+                        </button>
+                        <button onclick="answerQuiz(6, 'D', false, this)" class="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left text-sm md:text-base text-slate-200 transition-all font-medium">
+                            Г) Потроїти ціну для покупців без попередження
+                        </button>
+                    </div>
+                    <div id="quiz-6-feedback" class="hidden p-4 rounded-xl text-sm md:text-base font-semibold"></div>
+                </div>
+            </div>
+
+            <!-- SLIDE 15: QUIZ #7 -->
+            <div class="slide flex-col space-y-5 my-auto">
+                <div class="border-b border-slate-800 pb-3 flex justify-between items-center">
+                    <div>
+                        <span class="text-amber-400 font-bold text-xs md:text-sm tracking-wider uppercase">Тест • Питання 7 з 12</span>
+                        <h2 class="heading-font text-xl md:text-2xl font-bold text-white">Соціальне підприємництво</h2>
+                    </div>
+                    <span class="bg-amber-500/20 text-amber-300 text-xs md:text-sm px-3.5 py-1.5 rounded-full border border-amber-500/40 font-bold">1 бал</span>
+                </div>
+
+                <div class="glass-card p-6 md:p-8 rounded-2xl space-y-5 border border-slate-700">
+                    <p class="text-base md:text-xl font-bold text-slate-100 leading-relaxed">
+                        7. Яка ГОЛОВНА відмінність соціального підприємства від звичайної благодійної організації?
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="quiz-7-options">
+                        <button onclick="answerQuiz(7, 'A', false, this)" class="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left text-sm md:text-base text-slate-200 transition-all font-medium">
+                            А) Соціальне підприємство повністю звільнене від сплати будь-яких податків
+                        </button>
+                        <button onclick="answerQuiz(7, 'B', true, this)" class="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left text-sm md:text-base text-slate-200 transition-all font-medium">
+                            Б) Вона сама заробляє кошти продажем товарів/послуг, реінвестуючи прибуток у соціальну мету
+                        </button>
+                        <button onclick="answerQuiz(7, 'C', false, this)" class="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left text-sm md:text-base text-slate-200 transition-all font-medium">
+                            В) Соціальні підприємства працюють виключно з закордонними грантами
+                        </button>
+                        <button onclick="answerQuiz(7, 'D', false, this)" class="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left text-sm md:text-base text-slate-200 transition-all font-medium">
+                            Г) Вона виплачує заробітну плату виключно криптовалютою
+                        </button>
+                    </div>
+                    <div id="quiz-7-feedback" class="hidden p-4 rounded-xl text-sm md:text-base font-semibold"></div>
+                </div>
+            </div>
+
+            <!-- SLIDE 16: QUIZ #8 -->
+            <div class="slide flex-col space-y-5 my-auto">
+                <div class="border-b border-slate-800 pb-3 flex justify-between items-center">
+                    <div>
+                        <span class="text-amber-400 font-bold text-xs md:text-sm tracking-wider uppercase">Тест • Питання 8 з 12</span>
+                        <h2 class="heading-font text-xl md:text-2xl font-bold text-white">Модель Upcycling та Circular Economy</h2>
+                    </div>
+                    <span class="bg-amber-500/20 text-amber-300 text-xs md:text-sm px-3.5 py-1.5 rounded-full border border-amber-500/40 font-bold">1 бал</span>
+                </div>
+
+                <div class="glass-card p-6 md:p-8 rounded-2xl space-y-5 border border-slate-700">
+                    <p class="text-base md:text-xl font-bold text-slate-100 leading-relaxed">
+                        8. У чому полягає фінансова та екологічна вигода моделі Upcycling (апсайклінгу) у виробництві?
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="quiz-8-options">
+                        <button onclick="answerQuiz(8, 'A', false, this)" class="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left text-sm md:text-base text-slate-200 transition-all font-medium">
+                            А) Забруднення довкілля хімікатами для знищення сировини
+                        </button>
+                        <button onclick="answerQuiz(8, 'B', true, this)" class="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left text-sm md:text-base text-slate-200 transition-all font-medium">
+                            Б) Зниження витрат на сировину через перетворення використаних речей на більш цінні нові товари
+                        </button>
+                        <button onclick="answerQuiz(8, 'C', false, this)" class="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left text-sm md:text-base text-slate-200 transition-all font-medium">
+                            В) Спалювання старих товарів для отримання електрики
+                        </button>
+                        <button onclick="answerQuiz(8, 'D', false, this)" class="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left text-sm md:text-base text-slate-200 transition-all font-medium">
+                            Г) Продаж сировини на сміттєзвалища за заниженими цінами
+                        </button>
+                    </div>
+                    <div id="quiz-8-feedback" class="hidden p-4 rounded-xl text-sm md:text-base font-semibold"></div>
+                </div>
+            </div>
+
+            <!-- SLIDE 17: QUIZ #9 -->
+            <div class="slide flex-col space-y-5 my-auto">
+                <div class="border-b border-slate-800 pb-3 flex justify-between items-center">
+                    <div>
+                        <span class="text-amber-400 font-bold text-xs md:text-sm tracking-wider uppercase">Тест • Питання 9 з 12</span>
+                        <h2 class="heading-font text-xl md:text-2xl font-bold text-white">Інтелектуальна власність та Етика</h2>
+                    </div>
+                    <span class="bg-amber-500/20 text-amber-300 text-xs md:text-sm px-3.5 py-1.5 rounded-full border border-amber-500/40 font-bold">1 бал</span>
+                </div>
+
+                <div class="glass-card p-6 md:p-8 rounded-2xl space-y-5 border border-slate-700">
+                    <p class="text-base md:text-xl font-bold text-slate-100 leading-relaxed">
+                        9. Підліток створив мерч із фотографіями відомого музиканта без його дозволу та продає через мережу Instagram. Як оцінити цей бізнес з точки зору права?
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="quiz-9-options">
+                        <button onclick="answerQuiz(9, 'A', false, this)" class="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left text-sm md:text-base text-slate-200 transition-all font-medium">
+                            А) Це успішний підприємливий хід, який не порушує жодних законів
+                        </button>
+                        <button onclick="answerQuiz(9, 'B', true, this)" class="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left text-sm md:text-base text-slate-200 transition-all font-medium">
+                            Б) Це порушення авторських прав та права на інтелектуальну власність
+                        </button>
+                        <button onclick="answerQuiz(9, 'C', false, this)" class="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left text-sm md:text-base text-slate-200 transition-all font-medium">
+                            В) Це дозволено, якщо 10% виручки іде на благодійність
+                        </button>
+                        <button onclick="answerQuiz(9, 'D', false, this)" class="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left text-sm md:text-base text-slate-200 transition-all font-medium">
+                            Г) Це вважається інноваційним соціальним краудфандингом
+                        </button>
+                    </div>
+                    <div id="quiz-9-feedback" class="hidden p-4 rounded-xl text-sm md:text-base font-semibold"></div>
+                </div>
+            </div>
+
+            <!-- SLIDE 18: QUIZ #10 -->
+            <div class="slide flex-col space-y-5 my-auto">
+                <div class="border-b border-slate-800 pb-3 flex justify-between items-center">
+                    <div>
+                        <span class="text-amber-400 font-bold text-xs md:text-sm tracking-wider uppercase">Тест • Питання 10 з 12</span>
+                        <h2 class="heading-font text-xl md:text-2xl font-bold text-white">Фіксовані та Змінні витрати</h2>
+                    </div>
+                    <span class="bg-amber-500/20 text-amber-300 text-xs md:text-sm px-3.5 py-1.5 rounded-full border border-amber-500/40 font-bold">1 бал</span>
+                </div>
+
+                <div class="glass-card p-6 md:p-8 rounded-2xl space-y-5 border border-slate-700">
+                    <p class="text-base md:text-xl font-bold text-slate-100 leading-relaxed">
+                        10. Що з наведеного є прикладом ФІКСОВАНИХ (постійних) витрат кав'ярні, які не залежать від кількості проданих чашок кави?
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="quiz-10-options">
+                        <button onclick="answerQuiz(10, 'A', false, this)" class="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left text-sm md:text-base text-slate-200 transition-all font-medium">
+                            А) Кавові зерна та молоко
+                        </button>
+                        <button onclick="answerQuiz(10, 'B', true, this)" class="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left text-sm md:text-base text-slate-200 transition-all font-medium">
+                            Б) Фіксована щомісячна орендна плата за приміщення
+                        </button>
+                        <button onclick="answerQuiz(10, 'C', false, this)" class="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left text-sm md:text-base text-slate-200 transition-all font-medium">
+                            В) Одноразові паперові стаканчики та трубочки
+                        </button>
+                        <button onclick="answerQuiz(10, 'D', false, this)" class="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left text-sm md:text-base text-slate-200 transition-all font-medium">
+                            Г) Цукор у стіках
+                        </button>
+                    </div>
+                    <div id="quiz-10-feedback" class="hidden p-4 rounded-xl text-sm md:text-base font-semibold"></div>
+                </div>
+            </div>
+
+            <!-- SLIDE 19: QUIZ #11 -->
+            <div class="slide flex-col space-y-5 my-auto">
+                <div class="border-b border-slate-800 pb-3 flex justify-between items-center">
+                    <div>
+                        <span class="text-amber-400 font-bold text-xs md:text-sm tracking-wider uppercase">Тест • Питання 11 з 12</span>
+                        <h2 class="heading-font text-xl md:text-2xl font-bold text-white">Краудфандинг та Залучення інвестицій</h2>
+                    </div>
+                    <span class="bg-amber-500/20 text-amber-300 text-xs md:text-sm px-3.5 py-1.5 rounded-full border border-amber-500/40 font-bold">1 бал</span>
+                </div>
+
+                <div class="glass-card p-6 md:p-8 rounded-2xl space-y-5 border border-slate-700">
+                    <p class="text-base md:text-xl font-bold text-slate-100 leading-relaxed">
+                        11. Що таке краудфандинг (Crowdfunding)?
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="quiz-11-options">
+                        <button onclick="answerQuiz(11, 'A', false, this)" class="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left text-sm md:text-base text-slate-200 transition-all font-medium">
+                            А) Отримання великого кредиту в заставу власної квартири
+                        </button>
+                        <button onclick="answerQuiz(11, 'B', true, this)" class="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left text-sm md:text-base text-slate-200 transition-all font-medium">
+                            Б) Колективний збір невеликих сум грошей від багатьох людей через інтернет-платформи
+                        </button>
+                        <button onclick="answerQuiz(11, 'C', false, this)" class="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left text-sm md:text-base text-slate-200 transition-all font-medium">
+                            В) Лотерейний розіграш подарунків серед підписників
+                        </button>
+                        <button onclick="answerQuiz(11, 'D', false, this)" class="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left text-sm md:text-base text-slate-200 transition-all font-medium">
+                            Г) Виплати державних субсидій школярам
+                        </button>
+                    </div>
+                    <div id="quiz-11-feedback" class="hidden p-4 rounded-xl text-sm md:text-base font-semibold"></div>
+                </div>
+            </div>
+
+            <!-- SLIDE 20: QUIZ #12 -->
+            <div class="slide flex-col space-y-5 my-auto">
+                <div class="border-b border-slate-800 pb-3 flex justify-between items-center">
+                    <div>
+                        <span class="text-amber-400 font-bold text-xs md:text-sm tracking-wider uppercase">Тест • Питання 12 з 12</span>
+                        <h2 class="heading-font text-xl md:text-2xl font-bold text-white">Унікальна торгова пропозиція (УТП)</h2>
+                    </div>
+                    <span class="bg-amber-500/20 text-amber-300 text-xs md:text-sm px-3.5 py-1.5 rounded-full border border-amber-500/40 font-bold">1 бал</span>
+                </div>
+
+                <div class="glass-card p-6 md:p-8 rounded-2xl space-y-5 border border-slate-700">
+                    <p class="text-base md:text-xl font-bold text-slate-100 leading-relaxed">
+                        12. Що таке УТП (Унікальна торгова пропозиція) продукту?
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="quiz-12-options">
+                        <button onclick="answerQuiz(12, 'A', false, this)" class="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left text-sm md:text-base text-slate-200 transition-all font-medium">
+                            А) Будь-яка знижка, яку надають у свята
+                        </button>
+                        <button onclick="answerQuiz(12, 'B', true, this)" class="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left text-sm md:text-base text-slate-200 transition-all font-medium">
+                            Б) Ключова перевага та особливість, яка відрізняє ваш товар від усіх конкурентів
+                        </button>
+                        <button onclick="answerQuiz(12, 'C', false, this)" class="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left text-sm md:text-base text-slate-200 transition-all font-medium">
+                            В) Назва торгової марки, зареєстрована в суді
+                        </button>
+                        <button onclick="answerQuiz(12, 'D', false, this)" class="p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left text-sm md:text-base text-slate-200 transition-all font-medium">
+                            Г) Список усіх працівників підприємства
+                        </button>
+                    </div>
+                    <div id="quiz-12-feedback" class="hidden p-4 rounded-xl text-sm md:text-base font-semibold"></div>
+                </div>
+            </div>
+
+            <!-- SLIDE 21: Final Results & Certificate Generator -->
+            <div class="slide flex-col items-center justify-center text-center space-y-6 my-auto custom-scroll overflow-y-auto max-h-[80vh] pr-2">
+                <div class="inline-flex items-center space-x-2 bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-5 py-2 rounded-full text-xs md:text-sm font-bold uppercase tracking-wider">
+                    <i class="fa-solid fa-trophy text-amber-400 text-base"></i>
+                    <span>Урок завершено! Підсумки тестування</span>
+                </div>
+
+                <div id="certificate-card" class="glass-card p-8 md:p-10 rounded-3xl border-2 border-indigo-500/50 shadow-2xl max-w-2xl w-full space-y-5 relative overflow-hidden bg-gradient-to-b from-slate-900 via-slate-900 to-indigo-950/80">
+                    <div class="text-xs md:text-sm uppercase font-bold text-indigo-400 tracking-widest">Електронний Сертифікат Досягнення</div>
+                    
+                    <h3 id="cert-student-name" class="heading-font text-2xl md:text-3xl font-extrabold text-white underline decoration-cyan-400">
+                        Учень / Учениця
+                    </h3>
+
+                    <p class="text-xs md:text-base text-slate-300">
+                        успішно пройшов(-ла) практикум «Підприємництво та мистецтво бачити можливості»
+                    </p>
+
+                    <!-- Big Score Display -->
+                    <div class="py-4 bg-slate-950/80 rounded-2xl border border-slate-800 my-3">
+                        <div class="text-xs uppercase text-slate-400 font-bold tracking-wider">Підсумкова оцінка:</div>
+                        <div id="final-score-display" class="heading-font text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-emerald-400 to-cyan-400 my-1">
+                            0 / 12
+                        </div>
+                        <div id="score-comment" class="text-sm md:text-base font-semibold text-slate-300">
+                            Дайте відповіді на тести!
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3 text-xs md:text-sm text-slate-300 text-left bg-slate-900/70 p-4 rounded-xl border border-slate-800">
+                        <div><i class="fa-solid fa-check text-emerald-400 mr-1.5"></i> Тестів складено: <b>12/12</b></div>
+                        <div><i class="fa-solid fa-calendar text-cyan-400 mr-1.5"></i> Дата: <span id="cert-date">--.--.2026</span></div>
+                        <div><i class="fa-solid fa-school text-indigo-400 mr-1.5"></i> Курс: Підприємливість 9 кл</div>
+                        <div><i class="fa-solid fa-award text-amber-400 mr-1.5"></i> Статус: Зараховано</div>
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <button onclick="resetQuiz()" class="px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs md:text-sm font-bold text-slate-200 transition-all border border-slate-700">
+                        <i class="fa-solid fa-rotate-right mr-1.5"></i> Пройти знову
+                    </button>
+                    <button onclick="triggerConfetti()" class="px-7 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-xs md:text-sm font-extrabold text-white shadow-lg transition-all">
+                        <i class="fa-solid fa-sparkles mr-1.5"></i> Відсвяткувати успіх!
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Navigation Footer Controls -->
+    <footer class="w-full px-5 md:px-10 py-3.5 glass-card border-t border-slate-800 flex justify-between items-center shrink-0 z-20">
+        <button id="prev-btn" onclick="prevSlide()" class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs md:text-sm font-bold transition-all flex items-center space-x-2 disabled:opacity-40 disabled:cursor-not-allowed">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span class="hidden sm:inline">Назад</span>
+        </button>
+
+        <!-- Slide Indicators -->
+        <div id="dots-container" class="hidden md:flex items-center space-x-1.5 overflow-x-auto max-w-md px-2"></div>
+
+        <button id="next-btn" onclick="nextSlide()" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 via-indigo-600 to-purple-600 hover:opacity-90 text-white text-xs md:text-sm font-bold transition-all shadow-lg flex items-center space-x-2">
+            <span id="next-btn-text">Далі</span>
+            <i class="fa-solid fa-arrow-right"></i>
+        </button>
+    </footer>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 21;
+        let studentName = "Учень / Учениця";
+        let quizScores = new Array(13).fill(false); // 1-12 indexed
+        let quizAnswered = new Array(13).fill(false);
+
+        window.onload = function() {
+            initDots();
+            updateSlideView();
+            document.getElementById('cert-date').innerText = new Date().toLocaleDateString('uk-UA');
+        };
+
+        function saveStudentName(name) {
+            studentName = name.trim() || "Учень / Учениця";
+            document.getElementById('cert-student-name').innerText = studentName;
+        }
+
+        function initDots() {
+            const container = document.getElementById('dots-container');
+            container.innerHTML = '';
+            for (let i = 1; i <= totalSlides; i++) {
+                const dot = document.createElement('button');
+                dot.className = `w-2 h-2 rounded-full transition-all ${i === 1 ? 'bg-cyan-400 w-5' : 'bg-slate-700 hover:bg-slate-500'}`;
+                dot.onclick = () => goToSlide(i);
+                dot.id = `dot-${i}`;
+                container.appendChild(dot);
+            }
+        }
+
+        function updateSlideView() {
+            // Hide all slides
+            const slides = document.querySelectorAll('.slide');
+            slides.forEach((slide, idx) => {
+                slide.classList.remove('active');
+                if (idx === currentSlide - 1) {
+                    slide.classList.add('active');
+                }
+            });
+
+            // Update Progress bar & Slide Number
+            const progressPercent = ((currentSlide - 1) / (totalSlides - 1)) * 100;
+            document.getElementById('progress-bar').style.width = `${progressPercent}%`;
+            document.getElementById('slide-num').innerText = `${currentSlide} / ${totalSlides}`;
+
+            // Update Prev/Next Buttons
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const nextText = document.getElementById('next-btn-text');
+
+            prevBtn.disabled = (currentSlide === 1);
+
+            if (currentSlide === totalSlides) {
+                nextText.innerText = "Сертифікат";
+                calculateFinalResult();
+            } else {
+                nextText.innerText = "Далі";
+            }
+
+            // Update dots styling
+            for (let i = 1; i <= totalSlides; i++) {
+                const dot = document.getElementById(`dot-${i}`);
+                if (dot) {
+                    if (i === currentSlide) {
+                        dot.className = "w-5 h-2 rounded-full bg-cyan-400 transition-all";
+                    } else {
+                        dot.className = "w-2 h-2 rounded-full bg-slate-700 hover:bg-slate-500 transition-all";
+                    }
+                }
+            }
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides) {
+                currentSlide++;
+                updateSlideView();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 1) {
+                currentSlide--;
+                updateSlideView();
+            }
+        }
+
+        function goToSlide(num) {
+            currentSlide = num;
+            updateSlideView();
+        }
+
+        function toggleDiscussion(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.classList.toggle('hidden');
+            }
+        }
+
+        function answerQuiz(qNum, option, isCorrect, btnElement) {
+            if (quizAnswered[qNum]) return; // Prevent re-answering
+
+            quizAnswered[qNum] = true;
+            quizScores[qNum] = isCorrect;
+
+            const parentOptions = document.getElementById(`quiz-${qNum}-options`);
+            const buttons = parentOptions.querySelectorAll('button');
+
+            buttons.forEach(btn => {
+                btn.disabled = true;
+                btn.classList.add('opacity-50', 'cursor-not-allowed');
+            });
+
+            const feedback = document.getElementById(`quiz-${qNum}-feedback`);
+            feedback.classList.remove('hidden');
+
+            if (isCorrect) {
+                btnElement.classList.remove('opacity-50', 'bg-slate-900');
+                btnElement.classList.add('bg-emerald-600/30', 'border-emerald-500', 'text-emerald-200', 'font-bold');
+                feedback.className = "p-4 rounded-xl text-sm md:text-base font-semibold bg-emerald-950/80 text-emerald-300 border border-emerald-500/40";
+                feedback.innerHTML = `<i class="fa-solid fa-circle-check mr-2"></i> <b>Правильно! (+1 бал)</b> Відмінне підприємницьке рішення.`;
+            } else {
+                btnElement.classList.remove('opacity-50', 'bg-slate-900');
+                btnElement.classList.add('bg-rose-600/30', 'border-rose-500', 'text-rose-200');
+                feedback.className = "p-4 rounded-xl text-sm md:text-base font-semibold bg-rose-950/80 text-rose-300 border border-rose-500/40";
+                feedback.innerHTML = `<i class="fa-solid fa-circle-xmark mr-2"></i> <b>Невірно. (0 балів)</b> Перегляньте теоретичні слайди для кращого розуміння.`;
+            }
+        }
+
+        function calculateFinalResult() {
+            let totalPoints = 0;
+            for (let i = 1; i <= 12; i++) {
+                if (quizScores[i]) totalPoints++;
+            }
+
+            const scoreDisplay = document.getElementById('final-score-display');
+            const scoreComment = document.getElementById('score-comment');
+
+            scoreDisplay.innerText = `${totalPoints} / 12`;
+
+            if (totalPoints >= 10) {
+                scoreComment.innerText = "🌟 Виключний рівень! Ви справжній стратег та підприємець!";
+                scoreComment.className = "text-sm md:text-base font-extrabold text-emerald-400";
+            } else if (totalPoints >= 7) {
+                scoreComment.innerText = "👍 Добрий результат! Ви добре орієнтуєтеся у бізнес-процесах.";
+                scoreComment.className = "text-sm md:text-base font-bold text-cyan-400";
+            } else if (totalPoints >= 4) {
+                scoreComment.innerText = "💡 Задовільно. Варто повторити базові концепції EntreComp.";
+                scoreComment.className = "text-sm md:text-base font-semibold text-amber-400";
+            } else {
+                scoreComment.innerText = "📚 Рекомендуємо пройти матеріали уроку ще раз!";
+                scoreComment.className = "text-sm md:text-base font-semibold text-rose-400";
+            }
+        }
+
+        function resetQuiz() {
+            quizScores = new Array(13).fill(false);
+            quizAnswered = new Array(13).fill(false);
+
+            for (let i = 1; i <= 12; i++) {
+                const feedback = document.getElementById(`quiz-${i}-feedback`);
+                if (feedback) feedback.classList.add('hidden');
+
+                const parentOptions = document.getElementById(`quiz-${i}-options`);
+                if (parentOptions) {
+                    const buttons = parentOptions.querySelectorAll('button');
+                    buttons.forEach(btn => {
+                        btn.disabled = false;
+                        btn.className = "p-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left text-sm md:text-base text-slate-200 transition-all font-medium";
+                    });
+                }
+            }
+
+            currentSlide = 1;
+            updateSlideView();
+        }
+
+        function triggerConfetti() {
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 120,
+                    spread: 80,
+                    origin: { y: 0.6 }
+                });
+            }
+        }
+    </script>
+</body>
+</html>
